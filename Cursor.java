@@ -13,8 +13,8 @@ public class Cursor
     final String CURSOR_BACKWARD = "\033[D";
     final String SAVE_CURSOR_POSITION = "\033[s";
     final String RESTORE_CURSOR_POSITION = "\033[u";
-    final String CHANGE_CURSOR_COLOR_RED = "\033]12;red\007";
-    final String CHANGE_CURSOR_COLOR_WHITE = "\033]12;white\007";
+    final String CURSOR_COLOR_RED = "\033]12;red\007";
+    final String CURSOR_COLOR_WHITE = "\033]12;white\007";
 
     public void up()
     {
@@ -58,12 +58,12 @@ public class Cursor
 
     public void changeColorRed()
     {
-        System.out.print(CHANGE_CURSOR_COLOR_RED);
+        System.out.print(CURSOR_COLOR_RED);
     }
 
     public void changeColorWhite()
     {
-        System.out.print(CHANGE_CURSOR_COLOR_WHITE);
+        System.out.print(CURSOR_COLOR_WHITE);
     }
 
     public void printTextAfterCursor(int cursorPos, ArrayList<Character> col)
@@ -78,9 +78,7 @@ public class Cursor
             }
 
             System.out.print(' ');
-
             System.out.print(RESTORE_CURSOR_POSITION);
-    
         }
     }
 
@@ -90,7 +88,6 @@ public class Cursor
         {
             while (col.get(x - 1) != EMPTY_SPACE)
             {
-                if (x < 1) break;
                 backward();
             }
         }
@@ -120,4 +117,10 @@ public class Cursor
             }
         }
     }
+
+    public void jumpToLineStart()
+    {}
+
+    public void jumpToLineEnd()
+    {}
 }

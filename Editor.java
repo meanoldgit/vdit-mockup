@@ -191,25 +191,50 @@ class Key implements KeyListener
         }
     }
 
+
+    // NEW LINE
+
     public void newLine()
     {
-        for (int i = cursor.x; i < line.get(cursor.y).size(); i++)
-        {
-            System.out.print(EMPTY_SPACE);
-        }
-
-        System.out.print(action);
+        line.add(new ArrayList<>());
+        splitCurrentLine();
+        addNewLine();
         cursor.savePosition();
-        line.get(cursor.y).add(cursor.x, action);
-        cursor.x++;
+        printNewLine();
+        cursor.restorePosition();
+    }
 
-        for (int i = cursor.x; i < line.get(cursor.y).size(); i++)
+    public void splitCurrentLine()
+    {
+        if (cursor.x != line.get(cursor.y).size())
+        {
+            for (int i = cursor.x; i <= line.get(cursor.y).size(); i++)
+            {
+                line.get(cursor.y + 1).add(line.get(cursor.y).get(cursor.x));
+                line.get(cursor.y).remove(line.get(cursor.y).get(cursor.x));
+                System.out.print(EMPTY_SPACE);
+            }
+        }
+    }
+
+    public void addNewLine()
+    {
+        line.get(cursor.y).add(cursor.x, action);
+        cursor.y++;
+        System.out.print(action);
+        cursor.x = 0;
+    }
+
+    public void printNewLine()
+    {
+        for (int i = 0; i < line.get(cursor.y).size(); i++)
         {
             System.out.print(line.get(cursor.y).get(i));
         }
-        
-        cursor.restorePosition();
     }
+
+
+    // BACK SPACE
 
     public void backSpace()
     {
@@ -221,6 +246,9 @@ class Key implements KeyListener
 
         cursor.printTextAfterCursor(cursor.x, line.get(cursor.y));
     }
+
+
+    // TABULATION
 
     public void tabulate()
     {
@@ -236,6 +264,9 @@ class Key implements KeyListener
 
     public void reverseTab()
     {}
+
+
+    // COMMANDS
 
     public static void clearCommand()
     {
