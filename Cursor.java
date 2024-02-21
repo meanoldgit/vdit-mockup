@@ -30,14 +30,20 @@ public class Cursor
 
     public void backward()
     {
-        x--;
-        System.out.print(CURSOR_BACKWARD);
+        if (x > 0)
+        {
+            x--;
+            System.out.print(CURSOR_BACKWARD);
+        }
     }
 
-    public void forward()
+    public void forward(ArrayList<Character> col)
     {
-        x++;
-        System.out.print(CURSOR_FORWARD);
+        if (x < col.size())
+        {
+            x++;
+            System.out.print(CURSOR_FORWARD);
+        }
     }
 
     public void savePosition()
@@ -103,14 +109,14 @@ public class Cursor
         {
             while (col.get(x) != EMPTY_SPACE)
             {
-                forward();
+                forward(col);
             }
         }
         else
         {
             while (col.get(x) == EMPTY_SPACE)
             {
-                forward();
+                forward(col);
             }
         }
     }

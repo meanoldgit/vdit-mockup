@@ -120,7 +120,7 @@ class Key implements KeyListener
                 }
                 else
                 {
-                    cursor.forward();
+                    cursor.forward(line.get(cursor.y));
                 }
             }
             break;
