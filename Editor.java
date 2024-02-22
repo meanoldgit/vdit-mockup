@@ -10,15 +10,15 @@ public class Editor
     public static void main(String[] args)
     {
         JFrame frame = new JFrame();
-        String arg;
+        String fileName;
 
-        if (args.length > 0) arg = args[0];
-        else arg = null;
+        if (args.length > 0) fileName = args[0];
+        else fileName = null;
         
         frame.setUndecorated(true);
         frame.setVisible(true);
         frame.setFocusable(true);
-        frame.addKeyListener(new Key(arg));
+        frame.addKeyListener(new Key(fileName));
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBackground(new java.awt.Color(0, 0, 0, 1));
@@ -35,7 +35,7 @@ class Key implements KeyListener
     
     char action;
     char letter;
-    String arg = "";
+    String fileName = "";
     String path = "";
     boolean cursorMode = false;
     boolean altPressed = false;
@@ -45,11 +45,11 @@ class Key implements KeyListener
     final String SYMBOLS_REGEX = "[ .,:;_+-/\\*!\"'%$&@#~|()=¿?<>{}\\[\\]]";
 
     // Modify the constructor to pass the main parameter argument.
-    public Key(String arg)
+    public Key(String fileName)
     {
-        this.arg = arg;
+        this.fileName = fileName;
         clearCommand();
-        if (arg != null) System.out.println(arg);
+        if (fileName != null) System.out.println(fileName);
         lines.add(new ArrayList<>());
     }
 
@@ -62,11 +62,11 @@ class Key implements KeyListener
         || String.valueOf(letter).matches(SYMBOLS_REGEX))
         && !cursorMode && lines.get(cursor.y).size() < 70)
         {
-            System.out.print(letter);
             lines.get(cursor.y).add(cursor.x, letter);
             cursor.x++;
-
-            cursor.printTextAfterCursor(cursor.x, lines.get(cursor.y));
+            
+            System.out.print(letter);
+            cursor.printTextAfterCursor(lines.get(cursor.y));
         }
     }
 
@@ -197,11 +197,13 @@ class Key implements KeyListener
     {
         if (cursor.x < lines.get(cursor.y).size())
         {
-            for (int i = cursor.x; i <= lines.get(cursor.y).size(); i++)
+            int size = lines.get(cursor.y).size();
+            cursor.clearLineFromCursor();
+
+            for (int i = cursor.x; i < size; i++)
             {
                 lines.get(cursor.y + 1).add(lines.get(cursor.y).get(cursor.x));
-                lines.get(cursor.y).remove(lines.get(cursor.y).get(cursor.x));
-                System.out.print(EMPTY_SPACE);
+                lines.get(cursor.y).remove(cursor.x);
             }
         }
     }
@@ -232,7 +234,7 @@ class Key implements KeyListener
         // Backspace, print empty space, backspace again.
         System.out.print(action + " " + action);
 
-        cursor.printTextAfterCursor(cursor.x, lines.get(cursor.y));
+        cursor.printTextAfterCursor(lines.get(cursor.y));
     }
 
 
@@ -247,7 +249,7 @@ class Key implements KeyListener
             System.out.print(EMPTY_SPACE);
         }
         
-        cursor.printTextAfterCursor(cursor.x, lines.get(cursor.y));
+        cursor.printTextAfterCursor(lines.get(cursor.y));
     }
 
     public void reverseTab()

@@ -11,6 +11,7 @@ public class Cursor
     final String CURSOR_DOWN = "\033[B";
     final String CURSOR_FORWARD = "\033[C";
     final String CURSOR_BACKWARD = "\033[D";
+    final String CLEAR_LINE_FROM_CURSOR = "\033[K";
     final String SAVE_CURSOR_POSITION = "\033[s";
     final String RESTORE_CURSOR_POSITION = "\033[u";
     final String CURSOR_COLOR_RED = "\033]12;red\007";
@@ -46,6 +47,11 @@ public class Cursor
         }
     }
 
+    public void clearLineFromCursor()
+    {
+        System.out.print(CLEAR_LINE_FROM_CURSOR);
+    }
+
     public void savePosition()
     {
         System.out.print(SAVE_CURSOR_POSITION);
@@ -66,13 +72,13 @@ public class Cursor
         System.out.print(CURSOR_COLOR_WHITE);
     }
 
-    public void printTextAfterCursor(int cursorPos, ArrayList<Character> col)
+    public void printTextAfterCursor(ArrayList<Character> col)
     {
-        if (cursorPos < col.size())
+        if (x < col.size())
         {
             System.out.print(SAVE_CURSOR_POSITION);
 
-            for (int i = cursorPos; i < col.size(); i++)
+            for (int i = x; i < col.size(); i++)
                 System.out.print(col.get(i));
 
             System.out.print(' ');
