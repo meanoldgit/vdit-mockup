@@ -28,7 +28,7 @@ public class Editor
 
 class Key implements KeyListener
 {
-    ArrayList<ArrayList<Character>> line = new ArrayList<>();
+    ArrayList<ArrayList<Character>> lines = new ArrayList<>();
     FileManager fileManager = new FileManager();
     HotKeys hotKeys = new HotKeys();
     Cursor cursor = new Cursor();
@@ -50,7 +50,7 @@ class Key implements KeyListener
         this.arg = arg;
         clearCommand();
         if (arg != null) System.out.println(arg);
-        line.add(new ArrayList<>());
+        lines.add(new ArrayList<>());
     }
 
     @Override
@@ -60,13 +60,13 @@ class Key implements KeyListener
         
         if ((Character.isLetterOrDigit(letter)
         || String.valueOf(letter).matches(SYMBOLS_REGEX))
-        && !cursorMode && line.get(cursor.y).size() < 70)
+        && !cursorMode && lines.get(cursor.y).size() < 70)
         {
             System.out.print(letter);
-            line.get(cursor.y).add(cursor.x, letter);
+            lines.get(cursor.y).add(cursor.x, letter);
             cursor.x++;
 
-            cursor.printTextAfterCursor(cursor.x, line.get(cursor.y));
+            cursor.printTextAfterCursor(cursor.x, lines.get(cursor.y));
         }
     }
 
@@ -102,7 +102,7 @@ class Key implements KeyListener
             {
                 if (cursorMode && ctrlPressed)
                 {
-                    cursor.jumpBackward(line.get(cursor.y));
+                    cursor.jumpBackward(lines.get(cursor.y));
                 }
                 else
                 {
@@ -116,11 +116,11 @@ class Key implements KeyListener
             {
                 if (cursorMode && ctrlPressed)
                 {
-                    cursor.jumpForward(line.get(cursor.y));
+                    cursor.jumpForward(lines.get(cursor.y));
                 }
                 else
                 {
-                    cursor.forward(line.get(cursor.y));
+                    cursor.forward(lines.get(cursor.y));
                 }
             }
             break;
@@ -156,7 +156,7 @@ class Key implements KeyListener
             case KeyEvent.VK_C:
             if (ctrlPressed)
             {
-                hotKeys.close(line.get(cursor.y));
+                hotKeys.close(lines);
             }
             break;
 
@@ -196,41 +196,39 @@ class Key implements KeyListener
 
     public void newLine()
     {
-        line.add(new ArrayList<>());
+        lines.add(new ArrayList<>());
         splitCurrentLine();
-        addNewLine();
-        cursor.savePosition();
         printNewLine();
-        cursor.restorePosition();
     }
 
     public void splitCurrentLine()
     {
-        if (cursor.x != line.get(cursor.y).size())
+        if (cursor.x < lines.get(cursor.y).size())
         {
-            for (int i = cursor.x; i <= line.get(cursor.y).size(); i++)
+            for (int i = cursor.x; i <= lines.get(cursor.y).size(); i++)
             {
-                line.get(cursor.y + 1).add(line.get(cursor.y).get(cursor.x));
-                line.get(cursor.y).remove(line.get(cursor.y).get(cursor.x));
+                lines.get(cursor.y + 1).add(lines.get(cursor.y).get(cursor.x));
+                lines.get(cursor.y).remove(lines.get(cursor.y).get(cursor.x));
                 System.out.print(EMPTY_SPACE);
             }
         }
     }
 
-    public void addNewLine()
-    {
-        line.get(cursor.y).add(cursor.x, action);
-        cursor.y++;
-        System.out.print(action);
-        cursor.x = 0;
-    }
-
     public void printNewLine()
     {
-        for (int i = 0; i < line.get(cursor.y).size(); i++)
+        lines.get(cursor.y).add(cursor.x, action);
+        cursor.y++;
+        cursor.x = 0;
+        System.out.print(action);
+
+        cursor.savePosition();
+
+        for (int i = 0; i < lines.get(cursor.y).size(); i++)
         {
-            System.out.print(line.get(cursor.y).get(i));
+            System.out.print(lines.get(cursor.y).get(i));
         }
+
+        cursor.restorePosition();
     }
 
 
@@ -239,12 +237,12 @@ class Key implements KeyListener
     public void backSpace()
     {
         cursor.x--;
-        line.get(cursor.y).remove(cursor.x);
+        lines.get(cursor.y).remove(cursor.x);
 
         // Backspace, print empty space, backspace again.
         System.out.print(action + " " + action);
 
-        cursor.printTextAfterCursor(cursor.x, line.get(cursor.y));
+        cursor.printTextAfterCursor(cursor.x, lines.get(cursor.y));
     }
 
 
@@ -254,12 +252,12 @@ class Key implements KeyListener
     {
         for (int i = 0; i < 4; i++)
         {
-            line.get(cursor.y).add(cursor.x, EMPTY_SPACE);
+            lines.get(cursor.y).add(cursor.x, EMPTY_SPACE);
             cursor.x++;
             System.out.print(EMPTY_SPACE);
         }
         
-        cursor.printTextAfterCursor(cursor.x, line.get(cursor.y));
+        cursor.printTextAfterCursor(cursor.x, lines.get(cursor.y));
     }
 
     public void reverseTab()

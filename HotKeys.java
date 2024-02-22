@@ -7,16 +7,15 @@ public class HotKeys
     FileManager fileManager = new FileManager();
     Cursor cursor = new Cursor();
 
-    public void close(ArrayList<Character> col)
+    public void close(ArrayList<ArrayList<Character>> line)
     {
         cursor.changeColorWhite();
         System.out.println("\nbye");
 
         // Print file name.
-        for (int i = 0; i < col.size(); i++)
-        {
-            System.out.print(col.get(i));
-        }
+        for (int i = 0; i < line.size(); i++)
+            for (int j = 0; j < line.get(i).size(); j++)
+                System.out.print(line.get(i).get(j));
         
         System.out.println();
         System.exit(0);
