@@ -12,7 +12,7 @@ public class HotKeys
         cursor.changeColorWhite();
         System.out.println("\nbye");
 
-        // Print file name.
+        // Print lines.
         for (int i = 0; i < line.size(); i++)
             for (int j = 0; j < line.get(i).size(); j++)
                 System.out.print(line.get(i).get(j));

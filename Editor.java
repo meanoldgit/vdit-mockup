@@ -101,13 +101,9 @@ class Key implements KeyListener
             if (cursorMode || (!cursorMode && ctrlPressed))
             {
                 if (cursorMode && ctrlPressed)
-                {
                     cursor.jumpBackward(lines.get(cursor.y));
-                }
                 else
-                {
                     cursor.backward();
-                }
             }
             break;
 
@@ -115,13 +111,9 @@ class Key implements KeyListener
             if (cursorMode || (!cursorMode && ctrlPressed))
             {
                 if (cursorMode && ctrlPressed)
-                {
                     cursor.jumpForward(lines.get(cursor.y));
-                }
                 else
-                {
                     cursor.forward(lines.get(cursor.y));
-                }
             }
             break;
 
@@ -224,9 +216,7 @@ class Key implements KeyListener
         cursor.savePosition();
 
         for (int i = 0; i < lines.get(cursor.y).size(); i++)
-        {
             System.out.print(lines.get(cursor.y).get(i));
-        }
 
         cursor.restorePosition();
     }

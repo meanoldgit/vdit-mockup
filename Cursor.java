@@ -73,9 +73,7 @@ public class Cursor
             System.out.print(SAVE_CURSOR_POSITION);
 
             for (int i = cursorPos; i < col.size(); i++)
-            {
                 System.out.print(col.get(i));
-            }
 
             System.out.print(' ');
             System.out.print(RESTORE_CURSOR_POSITION);

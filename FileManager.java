@@ -18,8 +18,10 @@ public class FileManager
             Scanner read = new Scanner(file);
             String mapData = "";
 
-            if (file.createNewFile()) System.out.println("\nCreated.");
-            else System.out.println("\nName taken.");
+            if (file.createNewFile())
+                System.out.println("\nCreated.");
+            else
+                System.out.println("\nName taken.");
 
             write.write(mapData);
             write.close();
