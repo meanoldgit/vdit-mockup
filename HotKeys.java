@@ -12,6 +12,9 @@ public class HotKeys
         cursor.changeColorWhite();
         System.out.println("\nbye");
 
+        for (int i = 0; i < lines.size(); i++)
+            lines.get(i).add('\n');
+
         // Print lines.
         for (int i = 0; i < lines.size(); i++)
             for (int j = 0; j < lines.get(i).size(); j++)

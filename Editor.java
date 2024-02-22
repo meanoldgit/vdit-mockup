@@ -51,6 +51,7 @@ class Key implements KeyListener
         clearCommand();
         if (fileName != null) System.out.println(fileName);
         lines.add(new ArrayList<>());
+        // TODO: Remove all '\n' when opening file.
     }
 
     @Override
@@ -211,7 +212,6 @@ class Key implements KeyListener
 
     public void printNewLine()
     {
-        lines.get(cursor.y).add(action);
         cursor.y++;
         cursor.x = 0;
         System.out.print(action);
