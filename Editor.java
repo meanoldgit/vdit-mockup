@@ -134,7 +134,7 @@ class Key implements KeyListener
 
                 if (cursorMode && !ctrlPressed)
                 {
-                    cursor.down();
+                    cursor.down(lines);
                 }
             break;
 
@@ -195,14 +195,15 @@ class Key implements KeyListener
 
     public void splitCurrentLine()
     {
-        if (cursor.x < lines.get(cursor.y).size())
+        int size = lines.get(cursor.y).size();
+        int newLine = cursor.y + 1;
+        if (cursor.x < size)
         {
-            int size = lines.get(cursor.y).size();
             cursor.clearLineFromCursor();
 
             for (int i = cursor.x; i < size; i++)
             {
-                lines.get(cursor.y + 1).add(lines.get(cursor.y).get(cursor.x));
+                lines.get(newLine).add(lines.get(cursor.y).get(cursor.x));
                 lines.get(cursor.y).remove(cursor.x);
             }
         }
@@ -210,7 +211,7 @@ class Key implements KeyListener
 
     public void printNewLine()
     {
-        lines.get(cursor.y).add(cursor.x, action);
+        lines.get(cursor.y).add(action);
         cursor.y++;
         cursor.x = 0;
         System.out.print(action);
@@ -228,13 +229,16 @@ class Key implements KeyListener
 
     public void backSpace()
     {
-        cursor.x--;
-        lines.get(cursor.y).remove(cursor.x);
-
-        // Backspace, print empty space, backspace again.
-        System.out.print(action + " " + action);
-
-        cursor.printTextAfterCursor(lines.get(cursor.y));
+        if (cursor.x > 0)
+        {
+            cursor.x--;
+            lines.get(cursor.y).remove(cursor.x);
+            
+            // Backspace, print empty space, backspace again.
+            System.out.print(action + " " + action);
+            
+            cursor.printTextAfterCursor(lines.get(cursor.y));
+        }
     }
 
 

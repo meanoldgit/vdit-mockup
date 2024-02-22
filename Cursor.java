@@ -19,14 +19,20 @@ public class Cursor
 
     public void up()
     {
-        y--;
-        System.out.print(CURSOR_UP);
+        if (y > 0)
+        {
+            y--;
+            System.out.print(CURSOR_UP);
+        }
     }
 
-    public void down()
+    public void down(ArrayList<ArrayList<Character>> lines)
     {
-        y++;
-        System.out.print(CURSOR_DOWN);
+        if (y + 1 < lines.size())
+        {
+            y++;
+            System.out.print(CURSOR_DOWN);
+        }
     }
 
     public void backward()

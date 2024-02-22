@@ -7,15 +7,15 @@ public class HotKeys
     FileManager fileManager = new FileManager();
     Cursor cursor = new Cursor();
 
-    public void close(ArrayList<ArrayList<Character>> line)
+    public void close(ArrayList<ArrayList<Character>> lines)
     {
         cursor.changeColorWhite();
         System.out.println("\nbye");
 
         // Print lines.
-        for (int i = 0; i < line.size(); i++)
-            for (int j = 0; j < line.get(i).size(); j++)
-                System.out.print(line.get(i).get(j));
+        for (int i = 0; i < lines.size(); i++)
+            for (int j = 0; j < lines.get(i).size(); j++)
+                System.out.print(lines.get(i).get(j));
         
         System.out.println();
         System.exit(0);
