@@ -200,7 +200,7 @@ class Key implements KeyListener
         int newLine = cursor.y + 1;
         if (cursor.x < size)
         {
-            cursor.clearLineFromCursor();
+            cursor.clearLineAfterCursor();
 
             for (int i = cursor.x; i < size; i++)
             {
@@ -214,12 +214,21 @@ class Key implements KeyListener
     {
         cursor.y++;
         cursor.x = 0;
+        
         System.out.print(action);
+        cursor.clearLineAfterCursor();
 
         cursor.savePosition();
 
-        for (int i = 0; i < lines.get(cursor.y).size(); i++)
-            System.out.print(lines.get(cursor.y).get(i));
+        for (int i = cursor.y; i < lines.size(); i++)
+        {
+            for (int j = 0; j < lines.get(i).size(); j++)
+            {
+                System.out.print(lines.get(i).get(j));
+            }
+
+            System.out.println();
+        }
 
         cursor.restorePosition();
     }
