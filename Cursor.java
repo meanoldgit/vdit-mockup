@@ -78,7 +78,7 @@ public class Cursor
         System.out.print(CURSOR_COLOR_WHITE);
     }
 
-    public void printTextAfterCursor(ArrayList<Character> col)
+    public void printLineAfterCursor(ArrayList<Character> col)
     {
         if (x < col.size())
         {

@@ -67,7 +67,7 @@ class Key implements KeyListener
             cursor.x++;
             
             System.out.print(letter);
-            cursor.printTextAfterCursor(lines.get(cursor.y));
+            cursor.printLineAfterCursor(lines.get(cursor.y));
         }
     }
 
@@ -189,7 +189,7 @@ class Key implements KeyListener
 
     public void newLine()
     {
-        lines.add(new ArrayList<>());
+        lines.add(cursor.y + 1, new ArrayList<>());
         splitCurrentLine();
         printNewLine();
     }
@@ -237,7 +237,7 @@ class Key implements KeyListener
             // Backspace, print empty space, backspace again.
             System.out.print(action + " " + action);
             
-            cursor.printTextAfterCursor(lines.get(cursor.y));
+            cursor.printLineAfterCursor(lines.get(cursor.y));
         }
     }
 
@@ -253,7 +253,7 @@ class Key implements KeyListener
             System.out.print(EMPTY_SPACE);
         }
         
-        cursor.printTextAfterCursor(lines.get(cursor.y));
+        cursor.printLineAfterCursor(lines.get(cursor.y));
     }
 
     public void reverseTab()
