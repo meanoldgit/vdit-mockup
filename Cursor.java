@@ -11,7 +11,8 @@ public class Cursor
     final String CURSOR_DOWN = "\033[B";
     final String CURSOR_FORWARD = "\033[C";
     final String CURSOR_BACKWARD = "\033[D";
-    final String CLEAR_LINE_AFTER_CURSOR = "\033[K";
+    // final String CLEAR_LINE_AFTER_CURSOR = "\033[K";
+    final String CLEAR_SCREEN_AFTER_CURSOR = "\033[J";
     final String SAVE_CURSOR_POSITION = "\033[s";
     final String RESTORE_CURSOR_POSITION = "\033[u";
     final String CURSOR_COLOR_RED = "\033]12;red\007";
@@ -53,9 +54,9 @@ public class Cursor
         }
     }
 
-    public void clearLineAfterCursor()
+    public void clearScreenAfterCursor()
     {
-        System.out.print(CLEAR_LINE_AFTER_CURSOR);
+        System.out.print(CLEAR_SCREEN_AFTER_CURSOR);
     }
 
     public void savePosition()
