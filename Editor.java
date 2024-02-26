@@ -49,8 +49,16 @@ class Key implements KeyListener
     {
         this.fileName = fileName;
         clearCommand();
-        if (fileName != null) System.out.println(fileName);
-        lines.add(new ArrayList<>());
+
+        if (fileName != null)
+        {
+            fileManager.openFile(fileName, lines);
+        }
+        else
+        {
+            lines.add(new ArrayList<>());
+        }
+
         // TODO: Remove all '\n' when opening file.
     }
 
