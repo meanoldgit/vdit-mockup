@@ -36,6 +36,7 @@ class Key implements KeyListener
     String path = "";
     boolean cursorMode = false;
     boolean altPressed = false;
+    boolean shiftPressed = false;
     boolean ctrlPressed = false;
     
     final char EMPTY_SPACE = ' ';
@@ -98,6 +99,10 @@ class Key implements KeyListener
             altPressed = true;
             break;
 
+            case KeyEvent.VK_SHIFT:
+            shiftPressed = true;
+            break;
+
             case KeyEvent.VK_BACK_SPACE:
             backSpace();
             break;
@@ -124,24 +129,12 @@ class Key implements KeyListener
             break;
 
             case KeyEvent.VK_K:
-                if (ctrlPressed)
-                {
-                    if (cursorMode)
-                    {
-                        cursorMode = false;
-                        cursor.changeColorWhite();
-                    }
-                    else
-                    {
-                        cursorMode = true;
-                        cursor.changeColorRed();
-                    }
-                }
+            toggleCursorMode();
 
-                if (cursorMode && !ctrlPressed)
-                {
-                    cursor.down(lines);
-                }
+            if (cursorMode && !ctrlPressed)
+            {
+                cursor.down(lines);
+            }
             break;
 
             case KeyEvent.VK_I:
@@ -151,13 +144,11 @@ class Key implements KeyListener
             }
             break;
 
-            
-
             default:
             break;
         }
 
-        if (ctrlPressed)
+        if (ctrlPressed && !shiftPressed)
         {
             switch (event.getKeyCode())
             {
@@ -190,6 +181,10 @@ class Key implements KeyListener
 
             case KeyEvent.VK_ALT:
             altPressed = false;
+            break;
+
+            case KeyEvent.VK_SHIFT:
+            shiftPressed = false;
             break;
             
             default:
@@ -280,6 +275,26 @@ class Key implements KeyListener
 
     public void reverseTab()
     {}
+
+
+    // TOGGLE CURSOR MODE
+
+    public void toggleCursorMode()
+    {
+        if (ctrlPressed)
+        {
+            if (cursorMode)
+            {
+                cursorMode = false;
+                cursor.changeColorWhite();
+            }
+            else
+            {
+                cursorMode = true;
+                cursor.changeColorRed();
+            }
+        }
+    }
 
 
     // COMMANDS
