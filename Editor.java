@@ -31,6 +31,7 @@ class Key implements KeyListener
     ArrayList<ArrayList<Character>> lines = new ArrayList<>();
     HotKeys hotKeys = new HotKeys();
     Cursor cursor = new Cursor();
+    FileManager fileManager;
     char action;
     char letter;
     String path = "";
@@ -45,7 +46,7 @@ class Key implements KeyListener
     // Modify the constructor to pass the main parameter argument.
     public Key(String fileName)
     {
-        FileManager fileManager = new FileManager(fileName);
+        this.fileManager = new FileManager(fileName);
         clearCommand();
 
         if (fileName != null)
@@ -154,6 +155,10 @@ class Key implements KeyListener
             {
                 case KeyEvent.VK_C:
                 hotKeys.close(lines);
+                break;
+
+                case KeyEvent.VK_S:
+                fileManager.writeFile();
                 break;
 
                 default:

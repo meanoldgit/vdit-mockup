@@ -71,7 +71,7 @@ public class FileManager
         }
     }
 
-    public void writeFile(File file)
+    public void writeFile()
     {
         try
         {
