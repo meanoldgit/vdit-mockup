@@ -20,6 +20,16 @@ public class FileManager
         }
         else
         {
+            try
+            {
+                file.createNewFile();
+            }
+            catch (IOException e)
+            {
+                System.out.println("Couldn't create file.");
+                e.printStackTrace();
+            }
+
             lines.add(new ArrayList<>());
         }
     }
@@ -34,6 +44,8 @@ public class FileManager
                 String data = read.nextLine();
                 System.out.println(data);
             }
+            
+            read.close();
         }
         catch (IOException e)
         {
@@ -47,6 +59,7 @@ public class FileManager
         try
         {
             FileWriter write = new FileWriter(file);
+            write.close();
         }
         catch (IOException e)
         {
