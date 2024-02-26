@@ -16,7 +16,7 @@ public class FileManager
         if (file.exists())
         {
             System.out.println("file exists");
-            readFile(file);
+            readFile(file, lines);
         }
         else
         {
@@ -26,7 +26,7 @@ public class FileManager
             }
             catch (IOException e)
             {
-                System.out.println("Couldn't create file.");
+                System.out.println("\nCouldn't create file.");
                 e.printStackTrace();
             }
 
@@ -34,17 +34,26 @@ public class FileManager
         }
     }
 
-    public void readFile(File file)
+    public void readFile(File file, ArrayList<ArrayList<Character>> lines)
     {
         try
         {
             Scanner read = new Scanner(file);
+            String data = "";
+            int line;
+
             while (read.hasNextLine())
             {
-                String data = read.nextLine();
-                System.out.println(data);
+                line = lines.size();
+                data = read.nextLine();
+                lines.add(new ArrayList<>());
+
+                for (int i = 0; i < data.length(); i++)
+                {
+                    lines.get(line).add(data.charAt(i));
+                }
             }
-            
+
             read.close();
         }
         catch (IOException e)
@@ -75,14 +84,8 @@ public class FileManager
             
         //     String mapData = "";
 
-        //     if (file.createNewFile())
-        //         System.out.println("\nCreated.");
-        //     else
-        //         System.out.println("\nName taken.");
-
         //     write.write(mapData);
         //     write.close();
-        //     System.out.println("\nDone.");
 
         //     while (read.hasNextLine())
         //     {
