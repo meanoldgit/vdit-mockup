@@ -8,15 +8,23 @@ import java.util.Scanner;
 
 public class FileManager
 {
-    public void openFile(String fileName, ArrayList<ArrayList<Character>> lines)
+    File file;
+    String fileName;
+
+    public FileManager(String fileName)
+    {
+        this.fileName = fileName;
+    }
+
+    public void openFile(ArrayList<ArrayList<Character>> lines)
     {
         fileName = "editor/files/" + fileName;
-        File file = new File(fileName);
+        file = new File(fileName);
 
         if (file.exists())
         {
             System.out.println("file exists");
-            readFile(file, lines);
+            readFile(lines);
         }
         else
         {
@@ -34,7 +42,7 @@ public class FileManager
         }
     }
 
-    public void readFile(File file, ArrayList<ArrayList<Character>> lines)
+    public void readFile(ArrayList<ArrayList<Character>> lines)
     {
         try
         {

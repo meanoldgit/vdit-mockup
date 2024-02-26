@@ -29,13 +29,10 @@ public class Editor
 class Key implements KeyListener
 {
     ArrayList<ArrayList<Character>> lines = new ArrayList<>();
-    FileManager fileManager = new FileManager();
     HotKeys hotKeys = new HotKeys();
     Cursor cursor = new Cursor();
-    
     char action;
     char letter;
-    String fileName = "";
     String path = "";
     boolean cursorMode = false;
     boolean altPressed = false;
@@ -47,12 +44,12 @@ class Key implements KeyListener
     // Modify the constructor to pass the main parameter argument.
     public Key(String fileName)
     {
-        this.fileName = fileName;
+        FileManager fileManager = new FileManager(fileName);
         clearCommand();
 
         if (fileName != null)
         {
-            fileManager.openFile(fileName, lines);
+            fileManager.openFile(lines);
         }
         else
         {

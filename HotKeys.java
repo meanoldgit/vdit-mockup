@@ -1,11 +1,9 @@
 package editor;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class HotKeys
 {
-    FileManager fileManager = new FileManager();
     Cursor cursor = new Cursor();
 
     public void close(ArrayList<ArrayList<Character>> lines)
@@ -23,15 +21,5 @@ public class HotKeys
         
         System.out.println();
         System.exit(0);
-
-        // String fileName = "";
-        // for (int i = 0; i < column.size(); i++)
-        // {
-        //     fileName += column.get(i);
-        // }
-
-        // path = fileName;
-
-        // fileManager.confirmName(path);
     }
 }
