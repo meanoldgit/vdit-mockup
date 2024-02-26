@@ -154,15 +154,23 @@ class Key implements KeyListener
             }
             break;
 
-            case KeyEvent.VK_C:
-            if (ctrlPressed)
-            {
-                hotKeys.close(lines);
-            }
-            break;
+            
 
             default:
             break;
+        }
+
+        if (ctrlPressed)
+        {
+            switch (event.getKeyCode())
+            {
+                case KeyEvent.VK_C:
+                hotKeys.close(lines);
+                break;
+
+                default:
+                break;
+            }
         }
     }
 

@@ -39,7 +39,7 @@ public class FileManager
         try
         {
             Scanner read = new Scanner(file);
-            String data = "";
+            String data;
             int line;
 
             while (read.hasNextLine())
@@ -58,7 +58,7 @@ public class FileManager
         }
         catch (IOException e)
         {
-            System.out.println("\nSomething bad happened.");
+            System.out.println("\nCouldn't read file.");
             e.printStackTrace();
         }
     }
@@ -72,33 +72,16 @@ public class FileManager
         }
         catch (IOException e)
         {
-            System.out.println("\nSomething bad happened.");
+            System.out.println("\nCouldn't write file.");
             e.printStackTrace();
         }
     }
 
     public void confirmName(String path)
     {
-        // try
-        // {
-            
         //     String mapData = "";
 
         //     write.write(mapData);
         //     write.close();
-
-        //     while (read.hasNextLine())
-        //     {
-        //         String data = read.nextLine();
-        //         System.out.println(data);
-        //     }
-
-        //     read.close();
-        // }
-        // catch (IOException e)
-        // {
-        //     System.out.println("\nSomething bad happened.");
-        //     e.printStackTrace();
-        // }
     }
 }
