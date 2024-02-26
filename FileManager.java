@@ -71,7 +71,7 @@ public class FileManager
         }
     }
 
-    public void writeFile()
+    public void writeFile(ArrayList<ArrayList<Character>> lines)
     {
         try
         {

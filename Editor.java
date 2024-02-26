@@ -158,7 +158,7 @@ class Key implements KeyListener
                 break;
 
                 case KeyEvent.VK_S:
-                fileManager.writeFile();
+                fileManager.writeFile(lines);
                 break;
 
                 default:
