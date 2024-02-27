@@ -32,6 +32,7 @@ class Key implements KeyListener
     HotKeys hotKeys = new HotKeys();
     Cursor cursor = new Cursor();
     FileManager fileManager;
+    int screenHeight = 10;
     char action;
     char letter;
     String path = "";
@@ -52,6 +53,19 @@ class Key implements KeyListener
         if (fileName != null)
         {
             fileManager.openFile(lines);
+            cursor.savePosition();
+            
+            for (int i = 0; i < screenHeight && i < lines.size(); i++)
+            {
+                for (int j = 0; j < lines.get(i).size(); j++)
+                {
+                    System.out.print(lines.get(i).get(j));
+                }
+
+                System.out.println();
+            }
+
+            cursor.restorePosition();
         }
         else
         {

@@ -9,6 +9,7 @@ public class HotKeys
     public void close(ArrayList<ArrayList<Character>> lines)
     {
         cursor.changeColorWhite();
+        cursor.clearScreenAfterCursor();
         System.out.println("\nbye");
 
         for (int i = 0; i < lines.size(); i++)

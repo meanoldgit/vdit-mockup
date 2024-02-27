@@ -18,7 +18,6 @@ public class FileManager
 
     public void openFile(ArrayList<ArrayList<Character>> lines)
     {
-        fileName = "editor/files/" + fileName;
         file = new File(fileName);
 
         if (file.exists())
