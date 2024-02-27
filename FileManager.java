@@ -27,16 +27,6 @@ public class FileManager
         }
         else
         {
-            try
-            {
-                file.createNewFile();
-            }
-            catch (IOException e)
-            {
-                System.out.println("\nCouldn't create file.");
-                e.printStackTrace();
-            }
-
             lines.add(new ArrayList<>());
         }
     }
@@ -74,6 +64,19 @@ public class FileManager
     {
         try
         {
+            if (!file.exists())
+            {
+                try
+                {
+                    file.createNewFile();
+                }
+                catch (IOException e)
+                {
+                    System.out.println("\nCouldn't create file.");
+                    e.printStackTrace();
+                }
+            }
+
             FileWriter write = new FileWriter(file);
             write.close();
         }
