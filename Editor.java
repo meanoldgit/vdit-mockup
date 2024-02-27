@@ -32,10 +32,14 @@ class Key implements KeyListener
     HotKeys hotKeys = new HotKeys();
     Cursor cursor = new Cursor();
     FileManager fileManager;
+
     int screenHeight = 10;
+    int screenWidth = 70;
+    int scroll = 0;
     char action;
     char letter;
     String path = "";
+
     boolean cursorMode = false;
     boolean altPressed = false;
     boolean shiftPressed = false;
@@ -47,12 +51,12 @@ class Key implements KeyListener
     // Modify the constructor to pass the main parameter argument.
     public Key(String fileName)
     {
-        this.fileManager = new FileManager(fileName);
+        this.fileManager = new FileManager(fileName, lines);
         clearCommand();
 
         if (fileName != null)
         {
-            fileManager.openFile(lines);
+            fileManager.openFile();
             cursor.savePosition();
             
             for (int i = 0; i < screenHeight && i < lines.size(); i++)
@@ -82,7 +86,8 @@ class Key implements KeyListener
         
         if ((Character.isLetterOrDigit(letter)
         || String.valueOf(letter).matches(SYMBOLS_REGEX))
-        && !cursorMode && lines.get(cursor.y).size() < 70)
+        && lines.get(cursor.y).size() < screenWidth
+        && !cursorMode && !altPressed)
         {
             lines.get(cursor.y).add(cursor.x, letter);
             cursor.x++;
@@ -96,6 +101,7 @@ class Key implements KeyListener
     public void keyPressed(KeyEvent event)
     {
         action = event.getKeyChar();
+        
         switch (event.getKeyCode())
         {
             case KeyEvent.VK_ENTER:
@@ -146,17 +152,13 @@ class Key implements KeyListener
             case KeyEvent.VK_K:
             toggleCursorMode();
 
-            if (cursorMode && !ctrlPressed)
-            {
+            if (cursorMode || (!cursorMode && ctrlPressed))
                 cursor.down(lines);
-            }
             break;
 
             case KeyEvent.VK_I:
-            if (cursorMode)
-            {
+            if (cursorMode || (!cursorMode && ctrlPressed))
                 cursor.up();
-            }
             break;
 
             default:
@@ -172,7 +174,7 @@ class Key implements KeyListener
                 break;
 
                 case KeyEvent.VK_S:
-                fileManager.writeFile(lines);
+                fileManager.writeFile();
                 break;
 
                 default:
@@ -300,7 +302,7 @@ class Key implements KeyListener
 
     public void toggleCursorMode()
     {
-        if (ctrlPressed)
+        if (altPressed)
         {
             if (cursorMode)
             {

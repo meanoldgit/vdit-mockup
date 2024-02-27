@@ -10,20 +10,22 @@ public class FileManager
 {
     File file;
     String fileName;
+    ArrayList<ArrayList<Character>> lines;
 
-    public FileManager(String fileName)
+    public FileManager(String fileName, ArrayList<ArrayList<Character>> lines)
     {
         this.fileName = fileName;
+        this.lines = lines;
     }
 
-    public void openFile(ArrayList<ArrayList<Character>> lines)
+    public void openFile()
     {
         file = new File(fileName);
 
         if (file.exists())
         {
             System.out.println("file exists");
-            readFile(lines);
+            readFile();
         }
         else
         {
@@ -31,7 +33,7 @@ public class FileManager
         }
     }
 
-    public void readFile(ArrayList<ArrayList<Character>> lines)
+    public void readFile()
     {
         try
         {
@@ -60,7 +62,7 @@ public class FileManager
         }
     }
 
-    public void writeFile(ArrayList<ArrayList<Character>> lines)
+    public void writeFile()
     {
         try
         {
