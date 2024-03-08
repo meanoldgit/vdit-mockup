@@ -18,12 +18,17 @@ public class Cursor
     final String CURSOR_COLOR_RED = "\033]12;red\007";
     final String CURSOR_COLOR_WHITE = "\033]12;white\007";
 
+    private void action(String action)
+    {
+        System.out.print(action);
+    }
+
     public void up()
     {
         if (y > 0)
         {
             y--;
-            System.out.print(CURSOR_UP);
+            action(CURSOR_UP);
         }
     }
 
@@ -32,7 +37,7 @@ public class Cursor
         if (y + 1 < lines.size())
         {
             y++;
-            System.out.print(CURSOR_DOWN);
+            action(CURSOR_DOWN);
         }
     }
 
@@ -41,7 +46,7 @@ public class Cursor
         if (x > 0)
         {
             x--;
-            System.out.print(CURSOR_BACKWARD);
+            action(CURSOR_BACKWARD);
         }
     }
 
@@ -50,46 +55,22 @@ public class Cursor
         if (x < col.size())
         {
             x++;
-            System.out.print(CURSOR_FORWARD);
+            action(CURSOR_FORWARD);
         }
     }
-
-    public void clearScreenAfterCursor()
-    {
-        System.out.print(CLEAR_SCREEN_AFTER_CURSOR);
-    }
-
-    public void savePosition()
-    {
-        System.out.print(SAVE_CURSOR_POSITION);
-    }
-
-    public void restorePosition()
-    {
-        System.out.print(RESTORE_CURSOR_POSITION);
-    }
-
-    public void changeColorRed()
-    {
-        System.out.print(CURSOR_COLOR_RED);
-    }
-
-    public void changeColorWhite()
-    {
-        System.out.print(CURSOR_COLOR_WHITE);
-    }
-
+    
     public void printLineAfterCursor(ArrayList<Character> col)
     {
-        System.out.print(SAVE_CURSOR_POSITION);
-
+        savePosition();
+        
         for (int i = x; i < col.size(); i++)
             System.out.print(col.get(i));
-
+        
         System.out.print(' ');
-        System.out.print(RESTORE_CURSOR_POSITION);
+        
+        restorePosition();
     }
-
+    
     public void jumpBackward(ArrayList<Character> col)
     {
         if (col.get(x - 1) != EMPTY_SPACE)
@@ -125,10 +106,20 @@ public class Cursor
             }
         }
     }
-
+    
     public void jumpToLineStart()
     {}
 
     public void jumpToLineEnd()
     {}
+
+    public void clearScreenAfterCursor() { action(CLEAR_SCREEN_AFTER_CURSOR); }
+
+    public void savePosition() { action(SAVE_CURSOR_POSITION); }
+
+    public void restorePosition() { action(RESTORE_CURSOR_POSITION); }
+
+    public void changeColorRed() { action(CURSOR_COLOR_RED); }
+
+    public void changeColorWhite() { action(CURSOR_COLOR_WHITE); }
 }

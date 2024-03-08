@@ -37,14 +37,14 @@ public class FileManager
     {
         try
         {
-            Scanner read = new Scanner(file);
+            Scanner fscan = new Scanner(file);
             String data;
             int line;
 
-            while (read.hasNextLine())
+            while (fscan.hasNextLine())
             {
                 line = lines.size();
-                data = read.nextLine();
+                data = fscan.nextLine();
                 lines.add(new ArrayList<>());
 
                 for (int i = 0; i < data.length(); i++)
@@ -53,11 +53,11 @@ public class FileManager
                 }
             }
 
-            read.close();
+            fscan.close();
         }
         catch (IOException e)
         {
-            System.out.println("\nCouldn't read file.");
+            System.out.println("\nCouldn't fscan file.");
             e.printStackTrace();
         }
     }
@@ -79,21 +79,14 @@ public class FileManager
                 }
             }
 
-            FileWriter write = new FileWriter(file);
-            write.close();
+            FileWriter fwriter = new FileWriter(file);
+            // write.write(0);
+            fwriter.close();
         }
         catch (IOException e)
         {
             System.out.println("\nCouldn't write file.");
             e.printStackTrace();
         }
-    }
-
-    public void confirmName(String path)
-    {
-        //     String mapData = "";
-
-        //     write.write(mapData);
-        //     write.close();
     }
 }
