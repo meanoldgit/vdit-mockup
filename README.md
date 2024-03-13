@@ -1,6 +1,6 @@
 I can't exit vim, so i made my own text editor.
 
-## TODO:
+## TODO
 ### Editor
 - Move lines with alt key.
 - Copy & paste.
