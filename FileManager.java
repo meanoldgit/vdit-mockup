@@ -57,7 +57,7 @@ public class FileManager
         }
         catch (IOException e)
         {
-            System.out.println("\nCouldn't fscan file.");
+            System.out.println("\nCouldn't scan file.");
             e.printStackTrace();
         }
     }

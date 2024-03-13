@@ -4,24 +4,27 @@ import javax.swing.JFrame;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.awt.Color;
 
 public class Editor
 {
     public static void main(String[] args)
     {
-        JFrame frame = new JFrame();
         String fileName;
-
+        Key key;
+        JFrame frame = new JFrame();
+        
         if (args.length > 0) fileName = args[0];
         else fileName = null;
-        
+        key = new Key(fileName);
+
         frame.setUndecorated(true);
         frame.setVisible(true);
         frame.setFocusable(true);
-        frame.addKeyListener(new Key(fileName));
+        frame.addKeyListener(key);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBackground(new java.awt.Color(0, 0, 0, 1));
+        frame.setBackground(new Color(0, 0, 0, 1));
         frame.setFocusTraversalKeysEnabled(false);
     }
 }
