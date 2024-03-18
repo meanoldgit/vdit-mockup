@@ -1,8 +1,7 @@
 package editor;
 import java.util.ArrayList;
 
-public class Cursor
-{
+public class Cursor {
     int x = 0;
     int y = 0;
 
@@ -18,49 +17,39 @@ public class Cursor
     final String CURSOR_COLOR_RED = "\033]12;red\007";
     final String CURSOR_COLOR_WHITE = "\033]12;white\007";
 
-    private void action(String action)
-    {
+    private void action(String action) {
         System.out.print(action);
     }
 
-    public void up()
-    {
-        if (y > 0)
-        {
+    public void up() {
+        if (y > 0) {
             y--;
             action(CURSOR_UP);
         }
     }
 
-    public void down(ArrayList<ArrayList<Character>> lines)
-    {
-        if (y + 1 < lines.size())
-        {
+    public void down(ArrayList<ArrayList<Character>> lines) {
+        if (y + 1 < lines.size()) {
             y++;
             action(CURSOR_DOWN);
         }
     }
 
-    public void backward()
-    {
-        if (x > 0)
-        {
+    public void backward() {
+        if (x > 0) {
             x--;
             action(CURSOR_BACKWARD);
         }
     }
 
-    public void forward(ArrayList<Character> col)
-    {
-        if (x < col.size())
-        {
+    public void forward(ArrayList<Character> col) {
+        if (x < col.size()) {
             x++;
             action(CURSOR_FORWARD);
         }
     }
     
-    public void printLineAfterCursor(ArrayList<Character> col)
-    {
+    public void printLineAfterCursor(ArrayList<Character> col) {
         savePosition();
         
         for (int i = x; i < col.size(); i++)
@@ -71,47 +60,35 @@ public class Cursor
         restorePosition();
     }
     
-    public void jumpBackward(ArrayList<Character> col)
-    {
-        if (col.get(x - 1) != EMPTY_SPACE)
-        {
-            while (col.get(x - 1) != EMPTY_SPACE)
-            {
+    public void jumpBackward(ArrayList<Character> col) {
+        if (col.get(x - 1) != EMPTY_SPACE) {
+            while (col.get(x - 1) != EMPTY_SPACE) {
                 backward();
             }
         }
-        else
-        {
-            while (col.get(x - 1) == EMPTY_SPACE)
-            {
+        else {
+            while (col.get(x - 1) == EMPTY_SPACE) {
                 backward();
             }
         }
     }
 
-    public void jumpForward(ArrayList<Character> col)
-    {
-        if (col.get(x) != EMPTY_SPACE)
-        {
-            while (col.get(x) != EMPTY_SPACE)
-            {
+    public void jumpForward(ArrayList<Character> col) {
+        if (col.get(x) != EMPTY_SPACE) {
+            while (col.get(x) != EMPTY_SPACE) {
                 forward(col);
             }
         }
-        else
-        {
-            while (col.get(x) == EMPTY_SPACE)
-            {
+        else {
+            while (col.get(x) == EMPTY_SPACE) {
                 forward(col);
             }
         }
     }
     
-    public void jumpToLineStart()
-    {}
+    public void jumpToLineStart() {}
 
-    public void jumpToLineEnd()
-    {}
+    public void jumpToLineEnd() {}
 
     public void clearScreenAfterCursor() { action(CLEAR_SCREEN_AFTER_CURSOR); }
 

@@ -2,12 +2,10 @@ package editor;
 
 import java.util.ArrayList;
 
-public class HotKeys
-{
+public class HotKeys {
     Cursor cursor = new Cursor();
 
-    public void close(ArrayList<ArrayList<Character>> lines)
-    {
+    public void close(ArrayList<ArrayList<Character>> lines) {
         cursor.changeColorWhite();
         cursor.clearScreenAfterCursor();
         System.out.println("\nbye");

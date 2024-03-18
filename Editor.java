@@ -6,10 +6,8 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.awt.Color;
 
-public class Editor
-{
-    public static void main(String[] args)
-    {
+public class Editor {
+    public static void main(String[] args) {
         String fileName;
         Key key;
         JFrame frame = new JFrame();
@@ -29,8 +27,7 @@ public class Editor
     }
 }
 
-class Key implements KeyListener
-{
+class Key implements KeyListener {
     ArrayList<ArrayList<Character>> lines = new ArrayList<>();
     HotKeys hotKeys = new HotKeys();
     Cursor cursor = new Cursor();
@@ -52,20 +49,16 @@ class Key implements KeyListener
     final String SYMBOLS_REGEX = "[ .,:;_+-/\\*!\"'%$&@#~|()=¿?<>{}\\[\\]]";
 
     // Modify the constructor to pass the main parameter argument.
-    public Key(String fileName)
-    {
+    public Key(String fileName) {
         this.fileManager = new FileManager(fileName, lines);
         clearCommand();
 
-        if (fileName != null)
-        {
+        if (fileName != null) {
             fileManager.openFile();
             cursor.savePosition();
             
-            for (int i = 0; i < screenHeight && i < lines.size(); i++)
-            {
-                for (int j = 0; j < lines.get(i).size(); j++)
-                {
+            for (int i = 0; i < screenHeight && i < lines.size(); i++) {
+                for (int j = 0; j < lines.get(i).size(); j++) {
                     System.out.print(lines.get(i).get(j));
                 }
 
@@ -74,8 +67,7 @@ class Key implements KeyListener
 
             cursor.restorePosition();
         }
-        else
-        {
+        else {
             lines.add(new ArrayList<>());
         }
 
@@ -83,8 +75,7 @@ class Key implements KeyListener
     }
 
     @Override
-    public void keyTyped(KeyEvent event)
-    {
+    public void keyTyped(KeyEvent event) {
         letter = event.getKeyChar();
         
         if ((Character.isLetterOrDigit(letter)
@@ -101,12 +92,10 @@ class Key implements KeyListener
     }
 
     @Override
-    public void keyPressed(KeyEvent event)
-    {
+    public void keyPressed(KeyEvent event) {
         action = event.getKeyChar();
         
-        switch (event.getKeyCode())
-        {
+        switch (event.getKeyCode()) {
             case KeyEvent.VK_ENTER:
             newLine();
             break;
@@ -133,45 +122,47 @@ class Key implements KeyListener
 
             // MOVE KEYS
             case KeyEvent.VK_J:
-            if (cursorMode || (!cursorMode && ctrlPressed))
-            {
-                if (cursorMode && ctrlPressed)
+            if (cursorMode || (!cursorMode && ctrlPressed)) {
+                if (cursorMode && ctrlPressed) {
                     cursor.jumpBackward(lines.get(cursor.y));
-                else
+                }
+                else {
                     cursor.backward();
+                }
             }
             break;
 
             case KeyEvent.VK_L:
-            if (cursorMode || (!cursorMode && ctrlPressed))
-            {
-                if (cursorMode && ctrlPressed)
+            if (cursorMode || (!cursorMode && ctrlPressed)) {
+                if (cursorMode && ctrlPressed) {
                     cursor.jumpForward(lines.get(cursor.y));
-                else
+                }
+                else {
                     cursor.forward(lines.get(cursor.y));
+                }
             }
             break;
 
             case KeyEvent.VK_K:
             toggleCursorMode();
 
-            if (cursorMode || (!cursorMode && ctrlPressed))
+            if (cursorMode || (!cursorMode && ctrlPressed)) {
                 cursor.down(lines);
+            }
             break;
 
             case KeyEvent.VK_I:
-            if (cursorMode || (!cursorMode && ctrlPressed))
+            if (cursorMode || (!cursorMode && ctrlPressed)) {
                 cursor.up();
+            }
             break;
 
             default:
             break;
         }
 
-        if (ctrlPressed && !shiftPressed)
-        {
-            switch (event.getKeyCode())
-            {
+        if (ctrlPressed && !shiftPressed) {
+            switch (event.getKeyCode()) {
                 case KeyEvent.VK_C:
                 hotKeys.close(lines);
                 break;
@@ -187,13 +178,10 @@ class Key implements KeyListener
     }
 
     @Override
-    public void keyReleased(KeyEvent event)
-    {
-        switch (event.getKeyCode())
-        {
+    public void keyReleased(KeyEvent event) {
+        switch (event.getKeyCode()) {
             case KeyEvent.VK_E:
-            if (cursorMode)
-            {
+            if (cursorMode) {
                 cursorMode = false;
                 cursor.changeColorWhite();
             }
@@ -219,31 +207,26 @@ class Key implements KeyListener
 
     // NEW LINE
 
-    public void newLine()
-    {
+    public void newLine() {
         lines.add(cursor.y + 1, new ArrayList<>());
         splitCurrentLine();
         printNewLine();
     }
 
-    public void splitCurrentLine()
-    {
+    public void splitCurrentLine() {
         int size = lines.get(cursor.y).size();
         int newLine = cursor.y + 1;
-        if (cursor.x < size)
-        {
+        if (cursor.x < size) {
             cursor.clearScreenAfterCursor();
 
-            for (int i = cursor.x; i < size; i++)
-            {
+            for (int i = cursor.x; i < size; i++) {
                 lines.get(newLine).add(lines.get(cursor.y).get(cursor.x));
                 lines.get(cursor.y).remove(cursor.x);
             }
         }
     }
 
-    public void printNewLine()
-    {
+    public void printNewLine() {
         cursor.y++;
         cursor.x = 0;
         
@@ -252,10 +235,8 @@ class Key implements KeyListener
 
         cursor.savePosition();
 
-        for (int i = cursor.y; i < lines.size(); i++)
-        {
-            for (int j = 0; j < lines.get(i).size(); j++)
-            {
+        for (int i = cursor.y; i < lines.size(); i++) {
+            for (int j = 0; j < lines.get(i).size(); j++) {
                 System.out.print(lines.get(i).get(j));
             }
 
@@ -268,10 +249,8 @@ class Key implements KeyListener
 
     // BACK SPACE
 
-    public void backSpace()
-    {
-        if (cursor.x > 0)
-        {
+    public void backSpace() {
+        if (cursor.x > 0) {
             cursor.x--;
             lines.get(cursor.y).remove(cursor.x);
             
@@ -285,10 +264,8 @@ class Key implements KeyListener
 
     // TABULATION
 
-    public void tabulate()
-    {
-        for (int i = 0; i < 4; i++)
-        {
+    public void tabulate() {
+        for (int i = 0; i < 4; i++) {
             lines.get(cursor.y).add(cursor.x, EMPTY_SPACE);
             cursor.x++;
             System.out.print(EMPTY_SPACE);
@@ -297,23 +274,18 @@ class Key implements KeyListener
         cursor.printLineAfterCursor(lines.get(cursor.y));
     }
 
-    public void reverseTab()
-    {}
+    public void reverseTab() {}
 
 
     // TOGGLE CURSOR MODE
 
-    public void toggleCursorMode()
-    {
-        if (altPressed)
-        {
-            if (cursorMode)
-            {
+    public void toggleCursorMode() {
+        if (altPressed) {
+            if (cursorMode) {
                 cursorMode = false;
                 cursor.changeColorWhite();
             }
-            else
-            {
+            else {
                 cursorMode = true;
                 cursor.changeColorRed();
             }
@@ -323,15 +295,12 @@ class Key implements KeyListener
 
     // COMMANDS
 
-    public static void clearCommand()
-    {
-        try
-        {
+    public static void clearCommand() {
+        try {
             ProcessBuilder clear = new ProcessBuilder("bash", "-c", "clear").inheritIO();
             clear.start().waitFor();
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
