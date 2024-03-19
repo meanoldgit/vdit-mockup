@@ -4,6 +4,8 @@ I can't exit vim, so i made my own text editor.
 ### Editor
 - Move lines with alt key.
 - Copy & paste.
+- Multiline selection.
+- Color highlighting.
 
 ### File Manager
 - Manage file writing.
